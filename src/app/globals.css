@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0a0a1a;
+  --foreground: #ededed;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui,
+    Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
+    "Noto Sans KR", "Malgun Gothic", sans-serif;
+  overflow-x: hidden;
+}
+
+/* Mystical background stars */
+.stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle var(--duration) ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.8; }
+}
+
+/* Sparkle particle */
+.sparkle-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, #ffd700 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Gold gradient text */
+.text-gradient-gold {
+  background: linear-gradient(135deg, #ffd700 0%, #ffaa00 50%, #ffd700 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Purple gradient text */
+.text-gradient-purple {
+  background: linear-gradient(135deg, #a855f7 0%, #6366f1 50%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Mystic card styling */
+.mystic-card {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 215, 0, 0.08) 0%,
+    rgba(139, 92, 246, 0.08) 50%,
+    rgba(255, 215, 0, 0.05) 100%
+  );
+  border: 1px solid rgba(255, 215, 0, 0.15);
+  backdrop-filter: blur(20px);
+}
+
+.mystic-card:hover {
+  border-color: rgba(255, 215, 0, 0.3);
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.1);
+}
+
+/* Glowing button */
+.btn-glow {
+  background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+  color: #0a0a1a;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.btn-glow:hover {
+  box-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-glow:active {
+  transform: translateY(0);
+}
+
+/* Loading animation */
+.crystal-ball {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(168, 85, 247, 0.4), rgba(99, 102, 241, 0.2), transparent);
+  border: 2px solid rgba(168, 85, 247, 0.3);
+  animation: crystalPulse 2s ease-in-out infinite;
+  position: relative;
+}
+
+.crystal-ball::after {
+  content: "🔮";
+  font-size: 3rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes crystalPulse {
+  0%, 100% {
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.3), inset 0 0 30px rgba(168, 85, 247, 0.1);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 60px rgba(168, 85, 247, 0.5), inset 0 0 50px rgba(168, 85, 247, 0.2);
+    transform: scale(1.05);
+  }
+}
+
+/* Result card for capture */
+.result-card-capture {
+  background: linear-gradient(
+    160deg,
+    #0a0a1a 0%,
+    #1a0a2e 30%,
+    #0a1a2e 60%,
+    #0a0a1a 100%
+  );
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a1a;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(168, 85, 247, 0.3);
+  border-radius: 3px;
+}
+
+/* Share button styles */
+.share-btn {
+  transition: all 0.2s ease;
+}
+.share-btn:hover {
+  transform: translateY(-3px);
+}
+.share-btn:active {
+  transform: translateY(0);
+}
