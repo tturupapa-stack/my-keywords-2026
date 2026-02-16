@@ -61,17 +61,18 @@ export default function CheckPage() {
       <main className="relative min-h-screen flex flex-col items-center justify-center px-4">
         <StarBackground />
         <FloatingParticles />
-        <div className="relative z-10 text-center">
-          <div className="crystal-ball mx-auto mb-8" />
-          <p className="text-purple-300 text-lg animate-pulse">{loadingText}</p>
-          <div className="flex justify-center gap-1 mt-4">
-            {[0, 1, 2].map((i) => (
-              <div
-                key={i}
-                className="w-2 h-2 rounded-full bg-gold-300/60 animate-bounce"
-                style={{ animationDelay: `${i * 0.2}s` }}
-              />
-            ))}
+        <div className="relative z-10 w-full max-w-md mx-auto">
+          <div className="result-card-capture rounded-3xl p-6 sm:p-7 space-y-5">
+            <div className="crystal-ball mx-auto" />
+            <p className="text-purple-200 text-base sm:text-lg text-center animate-pulse">
+              {loadingText}
+            </p>
+            <div className="space-y-3" aria-hidden="true">
+              <div className="h-4 rounded-full shimmer" />
+              <div className="h-16 rounded-2xl shimmer" />
+              <div className="h-16 rounded-2xl shimmer" />
+              <div className="h-10 rounded-full shimmer" />
+            </div>
           </div>
         </div>
       </main>
@@ -87,6 +88,7 @@ export default function CheckPage() {
         {/* Back link */}
         <button
           onClick={() => router.back()}
+          aria-label="이전 페이지로 돌아가기"
           className="text-gray-500 hover:text-gray-300 text-sm mb-8 flex items-center gap-1 transition-colors"
         >
           ← 돌아가기
@@ -117,9 +119,11 @@ export default function CheckPage() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              aria-label="이름 입력"
               placeholder="홍길동"
               maxLength={10}
               required
+              autoComplete="name"
               className="w-full px-5 py-4 rounded-2xl bg-white/5 border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-gold-300/50 focus:bg-white/[0.07] transition-all text-lg"
             />
           </div>
@@ -136,16 +140,19 @@ export default function CheckPage() {
               type="date"
               value={birthDate}
               onChange={(e) => setBirthDate(e.target.value)}
+              aria-label="생년월일 입력"
               required
+              autoComplete="bday"
               max="2020-12-31"
               min="1940-01-01"
-              className="w-full px-5 py-4 rounded-2xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-gold-300/50 focus:bg-white/[0.07] transition-all text-lg [color-scheme:dark]"
+              className="w-full px-5 py-4 rounded-2xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-gold-300/50 focus:bg-white/[0.07] transition-all text-lg"
             />
           </div>
 
           <button
             type="submit"
             disabled={!name.trim() || !birthDate}
+            aria-label="2026 키워드 결과 확인하기"
             className="w-full btn-glow py-4 rounded-full text-lg tracking-wide disabled:opacity-30 disabled:cursor-not-allowed disabled:shadow-none disabled:hover:transform-none mt-4"
           >
             🔮 키워드 확인하기

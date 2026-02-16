@@ -15,7 +15,9 @@ export default function StarBackground() {
   const [stars, setStars] = useState<Star[]>([]);
 
   useEffect(() => {
-    const generated: Star[] = Array.from({ length: 80 }, (_, i) => ({
+    const mobile = window.innerWidth < 768;
+    const count = mobile ? 40 : 65;
+    const generated: Star[] = Array.from({ length: count }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,

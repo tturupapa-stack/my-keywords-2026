@@ -9,11 +9,22 @@ export default function FloatingParticles() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
+    const setCanvasSize = () => {
+      canvas.width = Math.floor(window.innerWidth * pixelRatio);
+      canvas.height = Math.floor(window.innerHeight * pixelRatio);
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+      ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    };
+    setCanvasSize();
 
     const particles: {
       x: number;
@@ -33,10 +44,12 @@ export default function FloatingParticles() {
       "255, 140, 0",   // dark orange
     ];
 
-    for (let i = 0; i < 30; i++) {
+    const particleCount = window.innerWidth < 768 ? 15 : 30;
+
+    for (let i = 0; i < particleCount; i++) {
       particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
         size: Math.random() * 3 + 1,
         speedX: (Math.random() - 0.5) * 0.5,
         speedY: (Math.random() - 0.5) * 0.5,
@@ -47,10 +60,16 @@ export default function FloatingParticles() {
     }
 
     let animationId: number;
+    let isVisible = true;
 
     function animate() {
       if (!ctx || !canvas) return;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (!isVisible) {
+        animationId = requestAnimationFrame(animate);
+        return;
+      }
+
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
       particles.forEach((p) => {
         p.x += p.speedX;
@@ -61,8 +80,8 @@ export default function FloatingParticles() {
           p.opacitySpeed *= -1;
         }
 
-        if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+        if (p.x < 0 || p.x > window.innerWidth) p.speedX *= -1;
+        if (p.y < 0 || p.y > window.innerHeight) p.speedY *= -1;
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
@@ -82,14 +101,19 @@ export default function FloatingParticles() {
     animate();
 
     const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      setCanvasSize();
+    };
+
+    const handleVisibility = () => {
+      isVisible = document.visibilityState === "visible";
     };
     window.addEventListener("resize", handleResize);
+    document.addEventListener("visibilitychange", handleVisibility);
 
     return () => {
       cancelAnimationFrame(animationId);
       window.removeEventListener("resize", handleResize);
+      document.removeEventListener("visibilitychange", handleVisibility);
     };
   }, []);
 

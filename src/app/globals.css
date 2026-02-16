@@ -5,6 +5,9 @@
 :root {
   --background: #0a0a1a;
   --foreground: #ededed;
+  --brand-primary: #ffd700;
+  --brand-secondary: #a855f7;
+  --brand-accent: #6366f1;
 }
 
 body {
@@ -14,6 +17,16 @@ body {
     Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
     "Noto Sans KR", "Malgun Gothic", sans-serif;
   overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.32);
 }
 
 /* Mystical background stars */
@@ -87,11 +100,11 @@ body {
 
 /* Glowing button */
 .btn-glow {
-  background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+  background: linear-gradient(135deg, var(--brand-primary) 0%, #ffb100 100%);
   color: #0a0a1a;
   font-weight: 700;
   transition: all 0.3s ease;
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3), 0 0 40px rgba(168, 85, 247, 0.12);
 }
 
 .btn-glow:hover {
@@ -139,10 +152,12 @@ body {
   background: linear-gradient(
     160deg,
     #0a0a1a 0%,
-    #1a0a2e 30%,
-    #0a1a2e 60%,
+    rgba(168, 85, 247, 0.18) 34%,
+    rgba(99, 102, 241, 0.14) 62%,
     #0a0a1a 100%
   );
+  border: 1px solid rgba(255, 215, 0, 0.22);
+  box-shadow: 0 16px 60px rgba(0, 0, 0, 0.5), 0 0 45px rgba(255, 215, 0, 0.1);
 }
 
 /* Scrollbar styling */
@@ -166,4 +181,36 @@ body {
 }
 .share-btn:active {
   transform: translateY(0);
+}
+
+.keyword-result-card {
+  border: 1px solid rgba(255, 215, 0, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.shimmer {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 215, 0, 0.22),
+    rgba(168, 85, 247, 0.12),
+    transparent
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
 }
